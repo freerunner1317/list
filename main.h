@@ -11,6 +11,7 @@ public:
     void push_front(T data);
     void insert(T data, int index);
     int getSize() { return Size; }
+    void removeAt(int index);
 
     T &operator[](const int element);
 
@@ -31,4 +32,24 @@ private:
 
     Node<T> *head;
     int Size;
+};
+
+class exeption
+{
+public:
+    exeption() {}
+    virtual std::string what() { return "Something went wrong"; }
+
+private:
+    std::string exWhat;
+};
+
+class indexExeptions : public exeption
+{
+public:
+    indexExeptions(std::string exWhat) : exWhat(exWhat) {}
+    std::string what() override { return "\n" + exWhat; }
+
+private:
+    std::string exWhat;
 };

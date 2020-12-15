@@ -5,26 +5,6 @@
 #include <string>
 #include "main.h"
 
-class exeption
-{
-public:
-    exeption() {}
-    virtual std::string what() { return "Something went wrong"; }
-
-private:
-    std::string exWhat;
-};
-
-class arrays : public exeption
-{
-public:
-    arrays(std::string exWhat) : exWhat(exWhat) {}
-    std::string what() override { return exWhat; }
-
-private:
-    std::string exWhat;
-};
-
 template <typename T>
 List<T>::List()
 {
@@ -43,7 +23,7 @@ T &List<T>::operator[](const int element)
     try
     {
         if (head == nullptr || element > Size)
-            throw arrays("\nIndex is out of range array or head is empty");
+            throw indexExeptions("Index is out of range array or head is empty");
     }
     catch (exeption &ex)
     {
@@ -107,15 +87,43 @@ void List<T>::push_front(T data)
 template <typename T>
 void List<T>::insert(T data, int index)
 {
-    Node<T> *temp = head;
-    if (!index)   
-        push_front(data); 
-    else 
+    if (!index)
+        push_front(data);
+    else
     {
+        Node<T> *temp = head;
         for (int i = 0; i < index - 1; i++)
             temp = temp->pNext;
         temp->pNext = new Node<T>(data, temp->pNext);
         Size++;
+    }
+}
+
+template <typename T>
+void List<T>::removeAt(int index)
+{
+    try
+    {
+        if ((index > Size) || (index < 0))
+            throw indexExeptions("Index is out of range");
+    }
+    catch (exeption &ex)
+    {
+        std::cout << ex.what() << std::endl;
+    }
+
+    if (!index)
+        pop_front();
+    else
+    {
+        Node<T> *temp = head;
+        Node<T> *tempT;
+        for (int i = 0; i < index - 1; i++)
+            temp = temp->pNext;
+        tempT = temp->pNext;
+        temp->pNext = temp->pNext->pNext;
+        delete tempT;
+        Size--;
     }
 }
 
@@ -124,9 +132,11 @@ int main()
     setlocale(LC_ALL, "Russian");
     List<int> test;
 
-    test.push_back(45);
-    test.push_back(46);
+    test.push_back(0);
+    test.push_back(1);
+    test.push_back(2);
     test.insert(4, 1);
+    test.removeAt(2);
     for (int i = 0; i < test.getSize(); i++)
     {
         std::cout << test[i] << std::endl;
