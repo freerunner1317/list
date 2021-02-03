@@ -19,36 +19,31 @@ public:
     class Iterator
     {
     public:
-        Iterator() : current(nullptr)
-        {
-        }
-        Iterator(T* init) : current(init)
-        {
-        }
+        Iterator(List<T> initList) : current(initList.head)
+        {}
 
         Iterator operator+(const int n);
         T operator*();
 
     private:
-        T* current;
+        typename List<T>::Node* current;
     };
 
 private:
-    template <typename T1>
     class Node
     {
     public:
-        Node(T1 data = T1(), Node *pNext = nullptr)
+        Node(T data = T(), Node *pNext = nullptr)
         {
             this->data = data;
             this->pNext = pNext;
         }
 
         Node *pNext;
-        T1 data;
+        T data;
     };
 
-    Node<T> *head;
+    Node *head;
     int Size;
 };
 

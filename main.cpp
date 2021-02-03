@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <list>
 #include "main.h"
 
@@ -31,7 +32,7 @@ T &List<T>::operator[](const int element)
         std::cout << ex.what() << std::endl;
     }
 
-    Node<T> *temp = head;
+    Node *temp = head;
     int countElements = 0;
     while ((temp->pNext != nullptr) && (countElements != element))
     {
@@ -50,7 +51,7 @@ void List<T>::push_back(T data)
     }
     else
     {
-        Node<T> *temp = head;
+        Node *temp = head;
         while (temp->pNext != nullptr)
         {
             temp = temp->pNext;
@@ -63,7 +64,7 @@ void List<T>::push_back(T data)
 template <typename T>
 void List<T>::pop_front()
 {
-    Node<T> *temp = head;
+    Node *temp = head;
     head = temp->pNext;
     delete temp;
     Size--;
@@ -92,7 +93,7 @@ void List<T>::insert(T data, int index)
         push_front(data);
     else
     {
-        Node<T> *temp = head;
+        Node *temp = head;
         for (int i = 0; i < index - 1; i++)
             temp = temp->pNext;
         temp->pNext = new Node<T>(data, temp->pNext);
@@ -117,8 +118,8 @@ void List<T>::removeAt(int index)
         pop_front();
     else
     {
-        Node<T> *temp = head;
-        Node<T> *tempT;
+        Node *temp = head;
+        Node *tempT;
         for (int i = 0; i < index - 1; i++)
             temp = temp->pNext;
         tempT = temp->pNext;
@@ -132,13 +133,13 @@ void List<T>::removeAt(int index)
 template <typename T>
 typename List<T>::Iterator List<T>::Iterator::operator+(const int n)
 {
-    return *this;
+    
 }
 
 template <typename T>
 T List<T>::Iterator::operator*()
 {
-    return T{5};
+    return T{0};
 }
 
 
@@ -148,10 +149,15 @@ int main()
     
     List<int> test;
 
-    List<int>::Iterator it;
+    List<int>::Iterator it(test);
 
-    it = it + 5;
+   // it = it + 5;
 
-    
-    std::cout << *it << std::endl;
+   // std::vector<int> vec{1, 2, 4};
+
+   // std::vector<int>::iterator iter;
+
+   // std::cout << *iter << std::endl;*/
+   // 
+   //// std::cout << *it << std::endl;
 }
