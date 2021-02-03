@@ -15,6 +15,24 @@ public:
 
     T &operator[](const int element);
 
+    
+    class Iterator
+    {
+    public:
+        Iterator() : current(nullptr)
+        {
+        }
+        Iterator(T* init) : current(init)
+        {
+        }
+
+        Iterator operator+(const int n);
+        T operator*();
+
+    private:
+        T* current;
+    };
+
 private:
     template <typename T1>
     class Node

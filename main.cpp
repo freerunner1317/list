@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 #include "main.h"
 
 template <typename T>
@@ -127,19 +128,30 @@ void List<T>::removeAt(int index)
     }
 }
 
+
+template <typename T>
+typename List<T>::Iterator List<T>::Iterator::operator+(const int n)
+{
+    return *this;
+}
+
+template <typename T>
+T List<T>::Iterator::operator*()
+{
+    return T{5};
+}
+
+
+
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+    
     List<int> test;
 
-    test.push_back(0);
-    test.push_back(1);
-    test.push_back(2);
-    test.insert(4, 1);
-    test.removeAt(2);
-    for (int i = 0; i < test.getSize(); i++)
-    {
-        std::cout << test[i] << std::endl;
-    }
-    test.clear();
+    List<int>::Iterator it;
+
+    it = it + 5;
+
+    
+    std::cout << *it << std::endl;
 }
